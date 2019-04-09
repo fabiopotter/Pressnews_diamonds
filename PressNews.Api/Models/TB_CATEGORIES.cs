@@ -27,7 +27,7 @@ namespace PressNews.Api.Models
         public System.DateTime dt_icl { get; set; }
         public int cd_usricl { get; set; }
         public Nullable<System.DateTime> dt_dencat { get; set; }
-        public int cd_usrden { get; set; }
+        public Nullable<int> cd_usrden { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TB_NEWS> TB_NEWS { get; set; }

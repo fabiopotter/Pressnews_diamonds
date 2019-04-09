@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="db_pressnewsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="db_pressnewsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="TB_CATEGORIES">
           <Key>
             <PropertyRef Name="id_cat" />
@@ -16,7 +16,7 @@
           <Property Name="dt_icl" Type="datetime" Nullable="false" />
           <Property Name="cd_usricl" Type="int" Nullable="false" />
           <Property Name="dt_dencat" Type="datetime" />
-          <Property Name="cd_usrden" Type="int" Nullable="false" />
+          <Property Name="cd_usrden" Type="int" />
         </EntityType>
         <EntityType Name="TB_NEWS">
           <Key>
@@ -66,8 +66,7 @@
             <End Role="TB_NEWS" EntitySet="TB_NEWS" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db_pressnewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -82,7 +81,7 @@
           <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="cd_usricl" Type="Int32" Nullable="false" />
           <Property Name="dt_dencat" Type="DateTime" Precision="3" />
-          <Property Name="cd_usrden" Type="Int32" Nullable="false" />
+          <Property Name="cd_usrden" Type="Int32" />
           <NavigationProperty Name="TB_NEWS" Relationship="Self.FK__TB_NEWS__id_cat__60A75C0F" FromRole="TB_CATEGORIES" ToRole="TB_NEWS" />
         </EntityType>
         <EntityType Name="TB_NEWS">
