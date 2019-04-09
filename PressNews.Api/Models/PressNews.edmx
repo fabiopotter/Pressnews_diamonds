@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="db_pressnewsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TB_CATEGORIES">
+          <Key>
+            <PropertyRef Name="id_cat" />
+          </Key>
+          <Property Name="id_cat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_cat" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ds_imgcat" Type="varbinary(max)" Nullable="false" />
+          <Property Name="fl_atv" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="dt_icl" Type="datetime" Nullable="false" />
+          <Property Name="cd_usricl" Type="int" Nullable="false" />
+          <Property Name="dt_dencat" Type="datetime" />
+          <Property Name="cd_usrden" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_NEWS">
+          <Key>
+            <PropertyRef Name="id_new" />
+          </Key>
+          <Property Name="id_new" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_new" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="ds_txtnew" Type="varchar(max)" Nullable="false" />
+          <Property Name="ds_urlnew" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="dt_new" Type="datetime" Nullable="false" />
+          <Property Name="dt_icl" Type="datetime" Nullable="false" />
+          <Property Name="cd_usricl" Type="int" Nullable="false" />
+          <Property Name="dt_alt" Type="datetime" />
+          <Property Name="cd_usralt" Type="int" />
+          <Property Name="id_cat" Type="int" />
+        </EntityType>
+        <EntityType Name="TB_USERS">
+          <Key>
+            <PropertyRef Name="id_usr" />
+          </Key>
+          <Property Name="id_usr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nm_lgnusr" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ds_pwdusr" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nm_usr" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="fl_atv" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="dt_icl" Type="datetime" Nullable="false" />
+          <Property Name="dt_denurs" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__TB_NEWS__id_cat__60A75C0F">
+          <End Role="TB_CATEGORIES" Type="Self.TB_CATEGORIES" Multiplicity="0..1" />
+          <End Role="TB_NEWS" Type="Self.TB_NEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_CATEGORIES">
+              <PropertyRef Name="id_cat" />
+            </Principal>
+            <Dependent Role="TB_NEWS">
+              <PropertyRef Name="id_cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_pressnewsModelStoreContainer">
+          <EntitySet Name="TB_CATEGORIES" EntityType="Self.TB_CATEGORIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_NEWS" EntityType="Self.TB_NEWS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_USERS" EntityType="Self.TB_USERS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TB_NEWS__id_cat__60A75C0F" Association="Self.FK__TB_NEWS__id_cat__60A75C0F">
+            <End Role="TB_CATEGORIES" EntitySet="TB_CATEGORIES" />
+            <End Role="TB_NEWS" EntitySet="TB_NEWS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_pressnewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TB_CATEGORIES">
+          <Key>
+            <PropertyRef Name="id_cat" />
+          </Key>
+          <Property Name="id_cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_cat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ds_imgcat" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="fl_atv" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cd_usricl" Type="Int32" Nullable="false" />
+          <Property Name="dt_dencat" Type="DateTime" Precision="3" />
+          <Property Name="cd_usrden" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TB_NEWS" Relationship="Self.FK__TB_NEWS__id_cat__60A75C0F" FromRole="TB_CATEGORIES" ToRole="TB_NEWS" />
+        </EntityType>
+        <EntityType Name="TB_NEWS">
+          <Key>
+            <PropertyRef Name="id_new" />
+          </Key>
+          <Property Name="id_new" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_new" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ds_txtnew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ds_urlnew" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dt_new" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cd_usricl" Type="Int32" Nullable="false" />
+          <Property Name="dt_alt" Type="DateTime" Precision="3" />
+          <Property Name="cd_usralt" Type="Int32" />
+          <Property Name="id_cat" Type="Int32" />
+          <NavigationProperty Name="TB_CATEGORIES" Relationship="Self.FK__TB_NEWS__id_cat__60A75C0F" FromRole="TB_NEWS" ToRole="TB_CATEGORIES" />
+        </EntityType>
+        <EntityType Name="TB_USERS">
+          <Key>
+            <PropertyRef Name="id_usr" />
+          </Key>
+          <Property Name="id_usr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_lgnusr" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ds_pwdusr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nm_usr" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fl_atv" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dt_denurs" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK__TB_NEWS__id_cat__60A75C0F">
+          <End Role="TB_CATEGORIES" Type="Self.TB_CATEGORIES" Multiplicity="0..1" />
+          <End Role="TB_NEWS" Type="Self.TB_NEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_CATEGORIES">
+              <PropertyRef Name="id_cat" />
+            </Principal>
+            <Dependent Role="TB_NEWS">
+              <PropertyRef Name="id_cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_pressnewsEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TB_CATEGORIES" EntityType="Self.TB_CATEGORIES" />
+          <EntitySet Name="TB_NEWS" EntityType="Self.TB_NEWS" />
+          <EntitySet Name="TB_USERS" EntityType="Self.TB_USERS" />
+          <AssociationSet Name="FK__TB_NEWS__id_cat__60A75C0F" Association="Self.FK__TB_NEWS__id_cat__60A75C0F">
+            <End Role="TB_CATEGORIES" EntitySet="TB_CATEGORIES" />
+            <End Role="TB_NEWS" EntitySet="TB_NEWS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_pressnewsModelStoreContainer" CdmEntityContainer="db_pressnewsEntities1">
+          <EntitySetMapping Name="TB_CATEGORIES">
+            <EntityTypeMapping TypeName="db_pressnewsModel.TB_CATEGORIES">
+              <MappingFragment StoreEntitySet="TB_CATEGORIES">
+                <ScalarProperty Name="id_cat" ColumnName="id_cat" />
+                <ScalarProperty Name="nm_cat" ColumnName="nm_cat" />
+                <ScalarProperty Name="ds_imgcat" ColumnName="ds_imgcat" />
+                <ScalarProperty Name="fl_atv" ColumnName="fl_atv" />
+                <ScalarProperty Name="dt_icl" ColumnName="dt_icl" />
+                <ScalarProperty Name="cd_usricl" ColumnName="cd_usricl" />
+                <ScalarProperty Name="dt_dencat" ColumnName="dt_dencat" />
+                <ScalarProperty Name="cd_usrden" ColumnName="cd_usrden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_NEWS">
+            <EntityTypeMapping TypeName="db_pressnewsModel.TB_NEWS">
+              <MappingFragment StoreEntitySet="TB_NEWS">
+                <ScalarProperty Name="id_new" ColumnName="id_new" />
+                <ScalarProperty Name="nm_new" ColumnName="nm_new" />
+                <ScalarProperty Name="ds_txtnew" ColumnName="ds_txtnew" />
+                <ScalarProperty Name="ds_urlnew" ColumnName="ds_urlnew" />
+                <ScalarProperty Name="dt_new" ColumnName="dt_new" />
+                <ScalarProperty Name="dt_icl" ColumnName="dt_icl" />
+                <ScalarProperty Name="cd_usricl" ColumnName="cd_usricl" />
+                <ScalarProperty Name="dt_alt" ColumnName="dt_alt" />
+                <ScalarProperty Name="cd_usralt" ColumnName="cd_usralt" />
+                <ScalarProperty Name="id_cat" ColumnName="id_cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_USERS">
+            <EntityTypeMapping TypeName="db_pressnewsModel.TB_USERS">
+              <MappingFragment StoreEntitySet="TB_USERS">
+                <ScalarProperty Name="id_usr" ColumnName="id_usr" />
+                <ScalarProperty Name="nm_lgnusr" ColumnName="nm_lgnusr" />
+                <ScalarProperty Name="ds_pwdusr" ColumnName="ds_pwdusr" />
+                <ScalarProperty Name="nm_usr" ColumnName="nm_usr" />
+                <ScalarProperty Name="fl_atv" ColumnName="fl_atv" />
+                <ScalarProperty Name="dt_icl" ColumnName="dt_icl" />
+                <ScalarProperty Name="dt_denurs" ColumnName="dt_denurs" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
