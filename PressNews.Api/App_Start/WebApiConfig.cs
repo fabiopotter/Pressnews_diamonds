@@ -11,7 +11,7 @@ namespace PressNews.Api
         public static void Register(HttpConfiguration config)
         {
             // Serviços e configuração da API da Web
-
+            config.EnableCors(new EnableCorsAttribute("*", "*", "*"));
             // Rotas da API da Web
             config.MapHttpAttributeRoutes();
 
@@ -20,7 +20,7 @@ namespace PressNews.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-            config.EnableCors(new EnableCorsAttribute("*", "*", "GET,PUT,POST,DELETE"));
+           
         }
     }
 }

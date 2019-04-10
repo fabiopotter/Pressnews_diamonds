@@ -10,6 +10,6 @@
 namespace PressNews.WebForm {
     
     
-    public partial class _Default {
+    public partial class Register {
     }
 }

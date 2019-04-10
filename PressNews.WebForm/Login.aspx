@@ -15,13 +15,14 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.1/jquery.validate.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    
-    <title></title>
+    <script src="Scripts/Login.js"></script>
+
+    <title>Login</title>
 </head>
 
 <body>
     
-    <form id="loginForm" method="post" action="api/GetCategories">
+    <%-- <form id="loginForm" method="post" >--%>
         <div>
             
             <div style="position:absolute; z-index:1;" id="Layer1">
@@ -44,17 +45,17 @@
                                 <span class="help-block"></span>
                             </div>
 
-                            <button type="submit" class="btn btn-success btn-block">Login</button>
+                            <input type="button" class="btn btn-success btn-block" id="login">Login</input>
                             <button type="submit" class="btn btn-default btn-block">Forgot Password ?</button>
                         </div>
                          <div class="col-xs-8" style="text-align:center;">
-                            <a class="lead" href="#">Create User</a>
+                            <a class="lead" href="/Register.aspx">Create User</a>
                         </div>
                     </div>
                  </div>
              </div>
         </div>
-    </form>
+   <%-- </form>--%>
     <%--<div class="container">
         <div class="row">
 			<div class="col-md-4 mx-auto">

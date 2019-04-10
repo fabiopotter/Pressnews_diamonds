@@ -16,10 +16,11 @@ namespace PressNews.Api.Models
     {
         public int id_usr { get; set; }
         public string nm_lgnusr { get; set; }
+        public string ds_emlusr { get; set; }
         public string ds_pwdusr { get; set; }
         public string nm_usr { get; set; }
         public string fl_atv { get; set; }
         public System.DateTime dt_icl { get; set; }
-        public Nullable<System.DateTime> dt_denurs { get; set; }
+        public Nullable<System.DateTime> dt_denusr { get; set; }
     }
 }
