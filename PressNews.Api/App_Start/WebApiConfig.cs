@@ -10,40 +10,34 @@ namespace PressNews.Api
     {
         public static void Register(HttpConfiguration config)
         {
-            // Services and WebApi configurations
+            config.MapHttpAttributeRoutes();
 
-            EnableCrossSiteRequests(config);
-
-            AddRoutes(config);
-
-            // Routes of API
-           /* config.MapHttpAttributeRoutes();
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );*/
-           
-        }
-
-        private static void AddRoutes(HttpConfiguration config)
-        {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
         }
 
-        private static void EnableCrossSiteRequests(HttpConfiguration config)
-        {
-            var cors = new EnableCorsAttribute(
-                origins: "*",
-                headers: "*",
-                methods: "*");
-            config.EnableCors(cors);
-        }
+        /*        private static void AddRoutes(HttpConfiguration config)
+                {
+                    config.Routes.MapHttpRoute(
+                        name: "DefaultApi",
+                        routeTemplate: "api/{controller}/{id}",
+                        defaults: new { id = RouteParameter.Optional }
+                    );
+                }
+        */
+        /*        private static void EnableCrossSiteRequests(HttpConfiguration config)
+                {
+                    var cors = new EnableCorsAttribute(
+                        origins: "*",
+                        headers: "*",
+                        methods: "*");
+                    config.EnableCors(cors);
+                }
+            }*/
     }
 }
 

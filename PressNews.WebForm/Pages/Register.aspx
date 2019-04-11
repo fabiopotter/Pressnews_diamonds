@@ -26,18 +26,18 @@
     <%-- <form id="loginForm" method="post" >--%>
         <div>
             
-            <div style="position:absolute; z-index:1;" id="Layer1">
+            <div style="position:absolute;" id="Layer1">
                 <div class="row">
-                <div class="col-xs-8"">
+                <div class="col-xs-8">
                     <img src="../img/logo_77.png" style="width:100%;"/>
-                    </div>
+                 </div>
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-8" style="align-content:center;">
                               <h2 style="text-align:center;">Register New User</h2>
                             <div class="form-group">
-                                <label for="ds_lgnusr" class="control-label">Login</label>
+                                <label for="ds_lgnusr" class="control-label">Username</label>
                                 <input type="text" class="form-control" id="ds_lgnusr" title="Enter your Login" placeholder="Enter your login here"></input>
                                 <span class="help-block"></span>
                             </div>
@@ -56,13 +56,11 @@
                                 <input type="password" class="form-control" id="ds_pwdusr" title="Enter your password" placeholder="Password"></input>
                                 <span class="help-block"></span>
                             </div>
-                             <div class="form-group">
-                                <label for="ds_pwdusrconfirm" class="control-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="ds_pwdusrconfirm" title="Confirm your password" placeholder="Password"></input>
-                                <span class="help-block"></span>
-                            </div>
-                            <input type="button" class="btn btn-success btn-block" id="login" value="Create User"></input>
-                        
+                            <input type="button" class="btn btn-success btn-block" id="register" value="Create User"></input>
+                                
+                                <div class="col-xs-12" style="text-align:center;">
+                                    <a class="lead" href="../Pages/Login.aspx">Back to Login</a>
+                                </div>
                     </div>
                  </div>
              </div>

@@ -22,12 +22,8 @@ namespace PressNews.Api.Models
     
         public int id_cat { get; set; }
         public string nm_cat { get; set; }
-        public byte[] ds_imgcat { get; set; }
-        public string fl_atv { get; set; }
+        public string ds_imgcat { get; set; }
         public System.DateTime dt_icl { get; set; }
-        public int cd_usricl { get; set; }
-        public Nullable<System.DateTime> dt_dencat { get; set; }
-        public Nullable<int> cd_usrden { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TB_NEWS> TB_NEWS { get; set; }

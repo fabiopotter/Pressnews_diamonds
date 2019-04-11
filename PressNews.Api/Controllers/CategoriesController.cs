@@ -19,18 +19,22 @@ namespace PressNews.Api.Controllers
 
         [ResponseType(typeof(IEnumerable<TB_CATEGORIES>))]
         [Route("api/GetCategories")]
+        [HttpGet]
         // GET: api/Categories
-        public IQueryable<TB_CATEGORIES> GetTB_CATEGORIES()
+        public IEnumerable<TB_CATEGORIES> GetAll()
         {
-            return db.TB_CATEGORIES;
+            return db.TB_CATEGORIES.ToList();
         }
 
+
         // GET: api/Categories/5
-        [ResponseType(typeof(TB_CATEGORIES))]
-        [Route("api/GetCategory")]
-        public async Task<IHttpActionResult> GetTB_CATEGORIES(int id)
+        [HttpGet()]
+        public IHttpActionResult Get(int id)
         {
-            TB_CATEGORIES tB_CATEGORIES = await db.TB_CATEGORIES.FindAsync(id);
+            List<TB_CATEGORIES> list = db.TB_CATEGORIES.ToList();
+            TB_CATEGORIES tB_CATEGORIES;
+
+            tB_CATEGORIES = list.Find(c => c.id_cat == id);
             if (tB_CATEGORIES == null)
             {
                 return NotFound();
@@ -76,9 +80,8 @@ namespace PressNews.Api.Controllers
         }
 
         // POST: api/Categories
-        [ResponseType(typeof(TB_CATEGORIES))]
-        [Route("api/PostCategory")]
-        public async Task<IHttpActionResult> PostTB_CATEGORIES(TB_CATEGORIES tB_CATEGORIES)
+        [HttpPost]
+        public IHttpActionResult Post(TB_CATEGORIES tB_CATEGORIES)
         {
             if (!ModelState.IsValid)
             {
@@ -86,9 +89,9 @@ namespace PressNews.Api.Controllers
             }
 
             db.TB_CATEGORIES.Add(tB_CATEGORIES);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = tB_CATEGORIES.id_cat }, tB_CATEGORIES);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // DELETE: api/Categories/5

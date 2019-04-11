@@ -18,12 +18,17 @@
     <script src="../Scripts/Login.js"></script>
 
     <title>Login</title>
-        
+
+     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 </head>
 
 <body>
     
-    <%-- <form id="loginForm" method="post" >--%>
         <div>
             
             <div style="position:absolute; z-index:1;" id="Layer1">
@@ -47,48 +52,18 @@
                             </div>
 
                             <input type="button" class="btn btn-success btn-block" id="login" value="Login"></input>
-                            <a href="../Pages/ForgotPassword.aspx">
-                            <input type="button" class="btn btn-default btn-block" value="Forgot Password ?"></input>
-                             </a>
+                           
                         </div>
                          <div class="col-xs-8" style="text-align:center;">
                             <a class="lead" href="../Pages/Register.aspx">Create User</a>
                         </div>
+                        
                     </div>
                  </div>
              </div>
         </div>
-   <%-- </form>--%>
-    <%--<div class="container">
-        <div class="row">
-			<div class="col-md-4 mx-auto">
-				<div class="myform form ">
-					 <div class="logo mb-4">
-						 <div class="col-md-12 text-center">
-							<h1>Login</h1>
-						 </div>
-					</div>
-                   <form action="" method="post" name="login">
-                           <div class="form-group">
-                              <label for="login">Login</label>
-                              <input type="text" name="email"  class="form-control" id="login" aria-describedby="loginHelp" placeholder="Enter login">
-                           </div>
-                           <div class="form-group">
-                              <label for="exampleInputEmail1">Password</label>
-                              <input type="password" name="password" id="password"  class="form-control" aria-describedby="loginHelp" placeholder="Enter Password">
-                           </div>
-                           <div class="col-md-12 text-center ">
-                              <button type="submit" class=" btn btn-block mybtn btn-primary tx-tfm">Login</button>
-                           </div>
-                          <div class="form-group">
-                              <p class="text-center">Don't have account? <a href="User.aspx" id="signup">Create here</a></p>
-                           </div>
-                        </form>
-                 
-				</div>
-			</div>
-		</div>
-      </div>   --%>
-</body>
+ </body>
+
+
 </html>
 </asp:Content>

@@ -25,8 +25,8 @@ namespace PressNews.Api.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<TB_USERS> TB_USERS { get; set; }
         public virtual DbSet<TB_CATEGORIES> TB_CATEGORIES { get; set; }
         public virtual DbSet<TB_NEWS> TB_NEWS { get; set; }
-        public virtual DbSet<TB_USERS> TB_USERS { get; set; }
     }
 }

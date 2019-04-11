@@ -44,7 +44,7 @@
                             <input type="button" class="btn btn-success btn-block" id="login" value="Recover Password"></input>
                          </div>
                          <div class="col-xs-8" style="text-align:center;">
-                            <a class="lead" href="/Register.aspx">Don't have an Account? Create User here!</a>
+                            <a class="lead" href="./Pages/Register.aspx">Don't have an Account? Create User here!</a>
                         </div>
                     </div>
                  </div>

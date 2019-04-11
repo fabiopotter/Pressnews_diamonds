@@ -18,93 +18,93 @@ namespace PressNews.Api.Controllers
     {
         private db_pressnewsEntities1 db = new db_pressnewsEntities1();
 
-        // GET: api/Users
-        public IQueryable<TB_USERS> GetTB_USERS()
-        {
-            return db.TB_USERS;
-        }
+        //// GET: api/Users
+        //public IQueryable<TB_USERS> GetTB_USERS()
+        //{
+        //    return db.TB_USERS;
+        //}
 
-        // GET: api/Users/5
-        [ResponseType(typeof(TB_USERS))]
-        public IHttpActionResult GetTB_USERS(TB_USERS user)
-        {
-            TB_USERS tB_USERS = user;
-            if (tB_USERS == null)
-            {
-                return NotFound();
-            }
+        //// GET: api/Users/5
+        //[ResponseType(typeof(TB_USERS))]
+        //public IHttpActionResult GetTB_USERS(TB_USERS user)
+        //{
+        //    TB_USERS tB_USERS = user;
+        //    if (tB_USERS == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(tB_USERS);
-        }
+        //    return Ok(tB_USERS);
+        //}
 
-        // PUT: api/Users/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutTB_USERS(int id, TB_USERS tB_USERS)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        //// PUT: api/Users/5
+        //[ResponseType(typeof(void))]
+        //public IHttpActionResult PutTB_USERS(int id, TB_USERS tB_USERS)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
 
-            if (id != tB_USERS.id_usr)
-            {
-                return BadRequest();
-            }
+        //    if (id != tB_USERS.id_usr)
+        //    {
+        //        return BadRequest();
+        //    }
 
-            db.Entry(tB_USERS).State = EntityState.Modified;
+        //    db.Entry(tB_USERS).State = EntityState.Modified;
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TB_USERSExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        db.SaveChanges();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!TB_USERSExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
         [ResponseType(typeof(TB_USERS))]
         [HttpPost]
         [Route("api/Account")]
-        public HttpResponseMessage Login(LoginDTO login)
+        public IHttpActionResult Login(LoginDTO login)
         {
-            var response = Request.CreateResponse(HttpStatusCode.Unauthorized);
+            //var response = Request.CreateResponse(HttpStatusCode.Unauthorized);
+            //db.TB_USERS.Count(e => e.id_usr == id)
 
-            if (login.Username == "admin" && login.Password == "admin")
+            if (db.TB_USERS.Any(e=> e.nm_lgnusr == login.Username && e.ds_pwdusr == login.Password))
             {
-               
-                response = Request.CreateResponse(HttpStatusCode.Moved);
-                response.Headers.Location= new Uri("http://localhost:50427/Pages/Register.aspx");
-
-                //return Redirect("http://google.com.br");
-                return response;
+                return StatusCode(HttpStatusCode.NoContent);
             }
 
-            return response;
+            return Unauthorized();
         }
 
 
         // POST: api/Users
         [ResponseType(typeof(TB_USERS))]
-        public IHttpActionResult PostTB_USERS(TB_USERS tB_USERS)
+        [HttpPost]
+        [Route("api/Register")]
+        public IHttpActionResult Register(TB_USERS tB_USERS)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            tB_USERS.dt_icl = DateTime.Now;
+
             db.TB_USERS.Add(tB_USERS);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = tB_USERS.id_usr }, tB_USERS);
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         // DELETE: api/Users/5

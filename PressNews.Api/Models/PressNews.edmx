@@ -11,16 +11,19 @@
           </Key>
           <Property Name="id_cat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nm_cat" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ds_imgcat" Type="varbinary(max)" Nullable="false" />
-          <Property Name="fl_atv" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="ds_imgcat" Type="varchar" MaxLength="100" />
           <Property Name="dt_icl" Type="datetime" Nullable="false" />
-          <Property Name="cd_usricl" Type="int" Nullable="false" />
-          <Property Name="dt_dencat" Type="datetime" />
-          <Property Name="cd_usrden" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'db_pressnews﻿.dbo.TB_NEWS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TB_NEWS">
           <Key>
             <PropertyRef Name="id_new" />
+            <PropertyRef Name="nm_new" />
+            <PropertyRef Name="ds_txtnew" />
+            <PropertyRef Name="ds_urlnew" />
+            <PropertyRef Name="dt_new" />
+            <PropertyRef Name="dt_icl" />
           </Key>
           <Property Name="id_new" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nm_new" Type="varchar" MaxLength="70" Nullable="false" />
@@ -28,14 +31,18 @@
           <Property Name="ds_urlnew" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="dt_new" Type="datetime" Nullable="false" />
           <Property Name="dt_icl" Type="datetime" Nullable="false" />
-          <Property Name="cd_usricl" Type="int" Nullable="false" />
-          <Property Name="dt_alt" Type="datetime" />
-          <Property Name="cd_usralt" Type="int" />
           <Property Name="id_cat" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'db_pressnews﻿.dbo.TB_USERS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TB_USERS">
           <Key>
             <PropertyRef Name="id_usr" />
+            
+            
+            
+            
+            
           </Key>
           <Property Name="id_usr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nm_lgnusr" Type="varchar" MaxLength="20" Nullable="false" />
@@ -44,7 +51,7 @@
           <Property Name="nm_usr" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="dt_icl" Type="datetime" Nullable="false" />
         </EntityType>
-        <Association Name="FK__TB_NEWS__id_cat__60A75C0F">
+        <Association Name="FK_News_Category">
           <End Role="TB_CATEGORIES" Type="Self.TB_CATEGORIES" Multiplicity="0..1" />
           <End Role="TB_NEWS" Type="Self.TB_NEWS" Multiplicity="*" />
           <ReferentialConstraint>
@@ -58,9 +65,28 @@
         </Association>
         <EntityContainer Name="db_pressnewsModelStoreContainer">
           <EntitySet Name="TB_CATEGORIES" EntityType="Self.TB_CATEGORIES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TB_NEWS" EntityType="Self.TB_NEWS" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TB_USERS" EntityType="Self.TB_USERS" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__TB_NEWS__id_cat__60A75C0F" Association="Self.FK__TB_NEWS__id_cat__60A75C0F">
+          <EntitySet Name="TB_NEWS" EntityType="Self.TB_NEWS" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TB_NEWS].[id_new] AS [id_new], 
+    [TB_NEWS].[nm_new] AS [nm_new], 
+    [TB_NEWS].[ds_txtnew] AS [ds_txtnew], 
+    [TB_NEWS].[ds_urlnew] AS [ds_urlnew], 
+    [TB_NEWS].[dt_new] AS [dt_new], 
+    [TB_NEWS].[dt_icl] AS [dt_icl], 
+    [TB_NEWS].[id_cat] AS [id_cat]
+    FROM [dbo].[TB_NEWS] AS [TB_NEWS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TB_USERS" EntityType="Self.TB_USERS" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [TB_USERS].[id_usr] AS [id_usr], 
+    [TB_USERS].[nm_lgnusr] AS [nm_lgnusr], 
+    [TB_USERS].[ds_emlusr] AS [ds_emlusr], 
+    [TB_USERS].[ds_pwdusr] AS [ds_pwdusr], 
+    [TB_USERS].[nm_usr] AS [nm_usr], 
+    [TB_USERS].[dt_icl] AS [dt_icl]
+    FROM [dbo].[TB_USERS] AS [TB_USERS]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_News_Category" Association="Self.FK_News_Category">
             <End Role="TB_CATEGORIES" EntitySet="TB_CATEGORIES" />
             <End Role="TB_NEWS" EntitySet="TB_NEWS" />
           </AssociationSet>
@@ -69,56 +95,14 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="db_pressnewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="TB_CATEGORIES">
-          <Key>
-            <PropertyRef Name="id_cat" />
-          </Key>
-          <Property Name="id_cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nm_cat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ds_imgcat" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="fl_atv" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="cd_usricl" Type="Int32" Nullable="false" />
-          <Property Name="dt_dencat" Type="DateTime" Precision="3" />
-          <Property Name="cd_usrden" Type="Int32" />
-          <NavigationProperty Name="TB_NEWS" Relationship="Self.FK__TB_NEWS__id_cat__60A75C0F" FromRole="TB_CATEGORIES" ToRole="TB_NEWS" />
-        </EntityType>
-        <EntityType Name="TB_NEWS">
-          <Key>
-            <PropertyRef Name="id_new" />
-          </Key>
-          <Property Name="id_new" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nm_new" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ds_txtnew" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ds_urlnew" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="dt_new" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="cd_usricl" Type="Int32" Nullable="false" />
-          <Property Name="dt_alt" Type="DateTime" Precision="3" />
-          <Property Name="cd_usralt" Type="Int32" />
-          <Property Name="id_cat" Type="Int32" />
-          <NavigationProperty Name="TB_CATEGORIES" Relationship="Self.FK__TB_NEWS__id_cat__60A75C0F" FromRole="TB_NEWS" ToRole="TB_CATEGORIES" />
-        </EntityType>
-        <Association Name="FK__TB_NEWS__id_cat__60A75C0F">
-          <End Role="TB_CATEGORIES" Type="Self.TB_CATEGORIES" Multiplicity="0..1" />
-          <End Role="TB_NEWS" Type="Self.TB_NEWS" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TB_CATEGORIES">
-              <PropertyRef Name="id_cat" />
-            </Principal>
-            <Dependent Role="TB_NEWS">
-              <PropertyRef Name="id_cat" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="db_pressnewsEntities1" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="TB_CATEGORIES" EntityType="Self.TB_CATEGORIES" />
-          <EntitySet Name="TB_NEWS" EntityType="Self.TB_NEWS" />
-          <AssociationSet Name="FK__TB_NEWS__id_cat__60A75C0F" Association="Self.FK__TB_NEWS__id_cat__60A75C0F">
+          <EntitySet Name="TB_USERS" EntityType="db_pressnewsModel.TB_USERS" />
+          <EntitySet Name="TB_CATEGORIES" EntityType="db_pressnewsModel.TB_CATEGORIES" />
+          <EntitySet Name="TB_NEWS" EntityType="db_pressnewsModel.TB_NEWS" />
+          <AssociationSet Name="FK_News_Category" Association="db_pressnewsModel.FK_News_Category">
             <End Role="TB_CATEGORIES" EntitySet="TB_CATEGORIES" />
             <End Role="TB_NEWS" EntitySet="TB_NEWS" />
           </AssociationSet>
-          <EntitySet Name="TB_USERS" EntityType="db_pressnewsModel.TB_USERS" />
         </EntityContainer>
         <EntityType Name="TB_USERS">
           <Key>
@@ -131,42 +115,52 @@
           <Property Name="nm_usr" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
+        <EntityType Name="TB_CATEGORIES">
+          <Key>
+            <PropertyRef Name="id_cat" />
+          </Key>
+          <Property Name="id_cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_cat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ds_imgcat" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TB_NEWS" Relationship="db_pressnewsModel.FK_News_Category" FromRole="TB_CATEGORIES" ToRole="TB_NEWS" />
+        </EntityType>
+        <EntityType Name="TB_NEWS">
+          <Key>
+            <PropertyRef Name="id_new" />
+            <PropertyRef Name="nm_new" />
+            <PropertyRef Name="ds_txtnew" />
+            <PropertyRef Name="ds_urlnew" />
+            <PropertyRef Name="dt_new" />
+            <PropertyRef Name="dt_icl" />
+          </Key>
+          <Property Name="id_new" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nm_new" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="ds_txtnew" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ds_urlnew" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="dt_new" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="dt_icl" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="id_cat" Type="Int32" />
+          <NavigationProperty Name="TB_CATEGORIES" Relationship="db_pressnewsModel.FK_News_Category" FromRole="TB_NEWS" ToRole="TB_CATEGORIES" />
+        </EntityType>
+        <Association Name="FK_News_Category">
+          <End Type="db_pressnewsModel.TB_CATEGORIES" Role="TB_CATEGORIES" Multiplicity="0..1" />
+          <End Type="db_pressnewsModel.TB_NEWS" Role="TB_NEWS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_CATEGORIES">
+              <PropertyRef Name="id_cat" />
+            </Principal>
+            <Dependent Role="TB_NEWS">
+              <PropertyRef Name="id_cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="db_pressnewsModelStoreContainer" CdmEntityContainer="db_pressnewsEntities1">
-          <EntitySetMapping Name="TB_CATEGORIES">
-            <EntityTypeMapping TypeName="db_pressnewsModel.TB_CATEGORIES">
-              <MappingFragment StoreEntitySet="TB_CATEGORIES">
-                <ScalarProperty Name="id_cat" ColumnName="id_cat" />
-                <ScalarProperty Name="nm_cat" ColumnName="nm_cat" />
-                <ScalarProperty Name="ds_imgcat" ColumnName="ds_imgcat" />
-                <ScalarProperty Name="fl_atv" ColumnName="fl_atv" />
-                <ScalarProperty Name="dt_icl" ColumnName="dt_icl" />
-                <ScalarProperty Name="cd_usricl" ColumnName="cd_usricl" />
-                <ScalarProperty Name="dt_dencat" ColumnName="dt_dencat" />
-                <ScalarProperty Name="cd_usrden" ColumnName="cd_usrden" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TB_NEWS">
-            <EntityTypeMapping TypeName="db_pressnewsModel.TB_NEWS">
-              <MappingFragment StoreEntitySet="TB_NEWS">
-                <ScalarProperty Name="id_new" ColumnName="id_new" />
-                <ScalarProperty Name="nm_new" ColumnName="nm_new" />
-                <ScalarProperty Name="ds_txtnew" ColumnName="ds_txtnew" />
-                <ScalarProperty Name="ds_urlnew" ColumnName="ds_urlnew" />
-                <ScalarProperty Name="dt_new" ColumnName="dt_new" />
-                <ScalarProperty Name="dt_icl" ColumnName="dt_icl" />
-                <ScalarProperty Name="cd_usricl" ColumnName="cd_usricl" />
-                <ScalarProperty Name="dt_alt" ColumnName="dt_alt" />
-                <ScalarProperty Name="cd_usralt" ColumnName="cd_usralt" />
-                <ScalarProperty Name="id_cat" ColumnName="id_cat" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TB_USERS">
             <EntityTypeMapping TypeName="db_pressnewsModel.TB_USERS">
               <MappingFragment StoreEntitySet="TB_USERS">
@@ -176,6 +170,29 @@
                 <ScalarProperty Name="ds_emlusr" ColumnName="ds_emlusr" />
                 <ScalarProperty Name="nm_lgnusr" ColumnName="nm_lgnusr" />
                 <ScalarProperty Name="id_usr" ColumnName="id_usr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_CATEGORIES">
+            <EntityTypeMapping TypeName="db_pressnewsModel.TB_CATEGORIES">
+              <MappingFragment StoreEntitySet="TB_CATEGORIES">
+                <ScalarProperty Name="dt_icl" ColumnName="dt_icl" />
+                <ScalarProperty Name="ds_imgcat" ColumnName="ds_imgcat" />
+                <ScalarProperty Name="nm_cat" ColumnName="nm_cat" />
+                <ScalarProperty Name="id_cat" ColumnName="id_cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_NEWS">
+            <EntityTypeMapping TypeName="db_pressnewsModel.TB_NEWS">
+              <MappingFragment StoreEntitySet="TB_NEWS">
+                <ScalarProperty Name="id_cat" ColumnName="id_cat" />
+                <ScalarProperty Name="dt_icl" ColumnName="dt_icl" />
+                <ScalarProperty Name="dt_new" ColumnName="dt_new" />
+                <ScalarProperty Name="ds_urlnew" ColumnName="ds_urlnew" />
+                <ScalarProperty Name="ds_txtnew" ColumnName="ds_txtnew" />
+                <ScalarProperty Name="nm_new" ColumnName="nm_new" />
+                <ScalarProperty Name="id_new" ColumnName="id_new" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

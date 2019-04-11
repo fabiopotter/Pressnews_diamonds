@@ -11,8 +11,8 @@ namespace PressNews.Api
     {
         protected void Application_Start()
         {
-            //GlobalConfiguration.Configure(WebApiConfig.Register);
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configure(WebApiConfig.Register);
+           
         }
     }
 }
