@@ -74,14 +74,21 @@ namespace PressNews.Api.Controllers
         [ResponseType(typeof(TB_USERS))]
         [HttpPost]
         [Route("api/Account")]
-        public IHttpActionResult Login(LoginDTO login)
+        public HttpResponseMessage Login(LoginDTO login)
         {
+            var response = Request.CreateResponse(HttpStatusCode.Unauthorized);
+
             if (login.Username == "admin" && login.Password == "admin")
             {
-                return Redirect("http://google.com.br");
-                //return Ok("");
+               
+                response = Request.CreateResponse(HttpStatusCode.Moved);
+                response.Headers.Location= new Uri("http://localhost:50427/Pages/Register.aspx");
+
+                //return Redirect("http://google.com.br");
+                return response;
             }
-            return Unauthorized();
+
+            return response;
         }
 
 
