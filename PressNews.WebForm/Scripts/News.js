@@ -1,15 +1,15 @@
 ﻿$(document).ready(function () {
-    categoryList();
+    newsList();
 });
 
 
-function categoryList() {
+function newsList() {
     $.ajax({
-        url: 'http://localhost:51076/api/GetCategories',
+        url: 'http://localhost:51076/api/GetNews',
         type: 'GET',
         dataType: 'json',
-        success: function (categories) {
-            categoryListSuccess(categories);
+        success: function (news) {
+            newsListSuccess(news);
         },
         error: function (request, message, error) {
             handleException(request, message, error);
@@ -17,43 +17,44 @@ function categoryList() {
     });
 }
 
-function categoryListSuccess(categories) {
+function newsListSuccess(news) {
     // Iterate over the collection of data
-    $.each(categories, function (index, category) {
-        // Add a row to the Category table
-        categoryAddRow(category);
+    $.each(news, function (index, news) {
+        // Add a row to the News table
+        newsAddRow(news);
     });
 }
 
-function categoryAddRow(category) {
+function newsAddRow(news) {
     // Check if <tbody> tag exists, add one if not
-    if ($("#categoryTable tbody").length === 0) {
-        $("#categoryTable").append("<tbody></tbody>");
+    if ($("#newsTable tbody").length === 0) {
+        $("#newsTable").append("<tbody></tbody>");
     }
     // Append row to <table>
-    $("#categoryTable tbody").append(
-        categoryBuildTableRow(category));
+    $("#newsTable tbody").append(
+        newsBuildTableRow(news));
 }
 //Build Table Function
-function categoryBuildTableRow(category) {
+function newsBuildTableRow(news) {
     var ret =
         "<tr>" +
         "<td>" +
         "<button type='button' " +
         "onclick='categoryGet(this);' " +
         "class='btn btn-default' " +
-        "data-id='" + category.id_cat + "'>" +
+        "data-id='" + news.id_new + "'>" +
         "<span class='glyphicon glyphicon-edit' />" +
         "</button>" +
         "</td >" +
-        "<td>" + category.nm_cat + "</td>" +
-        "<td>" + category.ds_imgcat + "</td>" +
-        "<td>" + category.dt_icl + "</td>" +
+        "<td>" + news.nm_new + "</td>" +
+        "<td>" + news.ds_txtnew + "</td>" +
+        "<td>" + news.dt_new + "</td>" +
+        "<td>" + news.ds_urlnew + "</td>" +
         "<td>" +
         "<button type='button' " +
         "onclick='categoryDelete(this);' " +
         "class='btn btn-default' " +
-        "data-id='" + category.id_cat + "'>" +
+        "data-id='" + news.id_new + "'>" +
         "<span class='glyphicon glyphicon-remove' />" +
         "</button>" +
         "</td>" +
@@ -73,20 +74,20 @@ function handleException(request, message,
     alert(msg);
 }
 
-function categoryGet(ctl) {
+function newsGet(ctl) {
     // Get Category id from data- attribute
     var id = $(ctl).data("id");
 
     // Store Category id in hidden field
-    $("#id_cat").val(id);
+    $("#id_new").val(id);
 
     // Call Web API to get a list of Categorys
     $.ajax({
-        url: "http://localhost:51076/api/Categories/" + id,
+        url: "http://localhost:51076/api/News/" + id,
         type: 'GET',
         dataType: 'json',
-        success: function (category) {
-            categoryToFields(category);
+        success: function (news) {
+            newsToFields(news);
 
             // Change Update Button Text
             $("#updateButton").text("Update");
@@ -97,21 +98,23 @@ function categoryGet(ctl) {
     });
 }
 
-function categoryToFields(category) {
-    $("#categoryname").val(category.nm_cat);
-    $("#introdate").val(category.dt_icl);
-    $("#url").val(category.ds_imgcat);
+function newsToFields(news) {
+    $("#newsname").val(news.nm_new);
+    $("#newsdesc").val(news.ds_txtnew);
+    $("#newsdate").val(news.dt_new);
+    $("#newsurl").val(news.ds_urlnew);
 }
 
 
-function categoryAddSuccess(category) {
-    categoryAddRow(category);
+function newsAddSuccess(news) {
+    newsAddRow(news);
     formClear();
 }
 function formClear() {
-    $("#categoryname").val("");
-    $("#introdate").val("");
-    $("#url").val("");
+    $("#newsname").val("");
+    $("#newsdesc").val("");
+    $("#newsdate").val("");
+    $("#newsurl").val("");
 }
 function addClick() {
     formClear();
@@ -119,32 +122,32 @@ function addClick() {
 
 function updateClick() {
     // Build Category object from inputs
-    Category = new Object();
-    Category.id_cat = $("#id_cat").val();
-    Category.nm_cat = $("#categoryname").val();
-    Category.dt_icl = $("#introdate").val();
-    Category.ds_imgcat = $("#url").val();
+    News = new Object();
+    News.id_new = $("#id_new").val();
+    News.nm_new = $("#newsname").val();
+    News.ds_txtnew = $("#newsdesc").val();
+    News.dt_new = $("#newsdate").val();
+    News.ds_urlnew = $("#newsurl").val();
 
     if ($("#updateButton").text().trim() == "Add") {
-        categoryAdd(Category);
+        newsAdd(News);
     }
     else {
-        categoryUpdate(Category);
+        newsUpdate(News);
     }
 }
 
 
-function categoryUpdate(category) {
-    //var url = "http://localhost:51076/api/PutCategory/" + category.id_cat;
-    var cat = { "id_cat": category.id_cat, "nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat, "dt_icl": category.dt_icl };
+function newsUpdate(news) {
+    var newvar = { "id_new": news.id_new, "nm_new": news.nm_new, "ds_txtnew": news.ds_txtnew, "dt_new": news.dt_new, "ds_urlnew": news.ds_urlnew };
     // Call Web API to update Category
     $.ajax({
-        url: "http://localhost:51076/api/UpdateCategory/",
+        url: "http://localhost:51076/api/UpdateNews/",
         type: 'POST',
         datatype: "json",
-        data: cat,
+        data: newvar,
         success: function (data) {
-            categoryUpdateSuccess(cat);
+            newsUpdateSuccess(cat);
         },
         error: function (request, message, error) {
             handleException(request, message, error);
@@ -152,24 +155,24 @@ function categoryUpdate(category) {
     });
 }
 
-function categoryUpdateSuccess(category) {
-    categoryUpdateInTable(category);
+function newsUpdateSuccess(news) {
+    newsUpdateInTable(news);
 }
 
 
-function categoryAdd(category) {
+function newsAdd(news) {
     // Call Web API to add a new Category
 
-    var cat = { "id_cat": 0,"nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat, "dt_icl": category.dt_icl };
+    var newvar = { "id_new": 0, "nm_new": news.nm_new, "ds_txtnew": news.ds_txtnew, "dt_new": news.dt_new, "ds_urlnew": news.ds_urlnew, "id_cat": 1 };
     $.ajax({
-        url: "http://localhost:51076/api/PostCategory",
+        url: "http://localhost:51076/api/PostNews",
         type: 'POST',
        // contentType: "application/json;charset=utf-8",
         datatype: "json",
-        data: cat,
+        data: newvar,
         success: function (data) {
-            cat.id_cat = data.id_cat;
-            categoryAddSuccess(cat);
+            newvar.id_new = data.id_new;
+            newsAddSuccess(newvar);
         },
         error: function (request, message, error) {
             handleException(request, message, error);
@@ -179,13 +182,13 @@ function categoryAdd(category) {
 
 
 
-// Update Category inside <table>
-function categoryUpdateInTable(category) {
+// Update News inside <table>
+function newsUpdateInTable(news) {
     // Find Category in <table>
-    var row = $("#categoryTable button[data-id='" + category.id_cat + "']")
+    var row = $("#newsTable button[data-id='" + news.id_new + "']")
         .parents("tr")[0];
     // Add changed Category to table
-    $(row).after(categoryBuildTableRow(category));
+    $(row).after(newsBuildTableRow(news));
     // Remove original Category
     $(row).remove();
 
@@ -197,12 +200,12 @@ function categoryUpdateInTable(category) {
 }
 
 // Delete product from <table>
-function categoryDelete(ctl) {
+function newsDelete(ctl) {
     var id = $(ctl).data("id");
 
     // Call Web API to delete a product
     $.ajax({
-        url: "http://localhost:51076/api/DeleteCategory/" + id,
+        url: "http://localhost:51076/api/DeleteNews/" + id,
         type: 'GET',
         datatype: "json",
         //contentType: "application/json",

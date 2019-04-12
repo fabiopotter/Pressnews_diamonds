@@ -17,20 +17,20 @@ namespace PressNews.Api.Controllers
     {
         private db_pressnewsEntities1 db = new db_pressnewsEntities1();
 
-        [ResponseType(typeof(IEnumerable<TB_NEWS>))]
+       
         [Route("api/GetNews")]
+        [HttpGet()]
         // GET: api/News
-        public IQueryable<TB_NEWS> GetTB_NEWS()
+        public IEnumerable<TB_NEWS> GetAll()
         {
             return db.TB_NEWS;
         }
 
         // GET: api/News/5
-        [ResponseType(typeof(TB_NEWS))]
-        [Route("api/GetNew")]
-        public async Task<IHttpActionResult> GetTB_NEWS(int id)
+        [HttpGet()]
+        public IHttpActionResult Get(int id)
         {
-            TB_NEWS tB_NEWS = await db.TB_NEWS.FindAsync(id);
+            TB_NEWS tB_NEWS = db.TB_NEWS.Find(id);
             if (tB_NEWS == null)
             {
                 return NotFound();
@@ -40,29 +40,24 @@ namespace PressNews.Api.Controllers
         }
 
         // PUT: api/News/5
-        [ResponseType(typeof(void))]
-        [Route("api/PutNew")]
-        public async Task<IHttpActionResult> PutTB_NEWS(int id, TB_NEWS tB_NEWS)
+        [Route("api/UpdateNews")]
+        [HttpPost()]
+        public IHttpActionResult Put(TB_NEWS tB_NEWS)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != tB_NEWS.id_new)
-            {
-                return BadRequest();
-            }
-
             db.Entry(tB_NEWS).State = EntityState.Modified;
 
             try
             {
-                await db.SaveChangesAsync();
+                 db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TB_NEWSExists(id))
+                if (!TB_NEWSExists(tB_NEWS.id_new))
                 {
                     return NotFound();
                 }
@@ -72,13 +67,13 @@ namespace PressNews.Api.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(tB_NEWS);
         }
 
         // POST: api/News
-        [ResponseType(typeof(TB_NEWS))]
-        [Route("api/PostNew")]
-        public async Task<IHttpActionResult> PostTB_NEWS(TB_NEWS tB_NEWS)
+        [Route("api/PostNews")]
+        [HttpPost()]
+        public IHttpActionResult Post(TB_NEWS tB_NEWS)
         {
             if (!ModelState.IsValid)
             {
@@ -86,26 +81,28 @@ namespace PressNews.Api.Controllers
             }
 
             db.TB_NEWS.Add(tB_NEWS);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = tB_NEWS.id_new }, tB_NEWS);
+            return Ok( new { id_new = tB_NEWS.id_new });
         }
 
-        // DELETE: api/News/5
-        [ResponseType(typeof(TB_NEWS))]
-        [Route("api/DeleteNew")]
-        public async Task<IHttpActionResult> DeleteTB_NEWS(int id)
+        // Changed to Get because by default ASP.NET does not handle DELETE, PUT, and PATCH verbs 
+        //because the WebDAV handler intercepts them. I've tried to change the web.config but still no handling
+        // DELETE: api/News
+        [HttpGet()]
+        [Route("api/DeleteNews/{id}")]
+        public IHttpActionResult Delete(int id)
         {
-            TB_NEWS tB_NEWS = await db.TB_NEWS.FindAsync(id);
+            TB_NEWS tB_NEWS = db.TB_NEWS.Find(id);
             if (tB_NEWS == null)
             {
                 return NotFound();
             }
 
             db.TB_NEWS.Remove(tB_NEWS);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return Ok(tB_NEWS);
+            return Ok(new { id_cat = tB_NEWS.id_cat });
         }
 
         protected override void Dispose(bool disposing)

@@ -20,9 +20,6 @@ namespace PressNews.Api.Models
         public string ds_urlnew { get; set; }
         public System.DateTime dt_new { get; set; }
         public System.DateTime dt_icl { get; set; }
-        public int cd_usricl { get; set; }
-        public Nullable<System.DateTime> dt_alt { get; set; }
-        public Nullable<int> cd_usralt { get; set; }
         public Nullable<int> id_cat { get; set; }
     
         public virtual TB_CATEGORIES TB_CATEGORIES { get; set; }

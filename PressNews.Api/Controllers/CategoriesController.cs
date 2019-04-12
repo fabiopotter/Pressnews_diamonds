@@ -17,7 +17,6 @@ namespace PressNews.Api.Controllers
     {
         private db_pressnewsEntities1 db = new db_pressnewsEntities1();
 
-        [ResponseType(typeof(IEnumerable<TB_CATEGORIES>))]
         [Route("api/GetCategories")]
         [HttpGet]
         // GET: api/Categories
@@ -31,10 +30,9 @@ namespace PressNews.Api.Controllers
         [HttpGet()]
         public IHttpActionResult Get(int id)
         {
-            List<TB_CATEGORIES> list = db.TB_CATEGORIES.ToList();
-            TB_CATEGORIES tB_CATEGORIES;
-
-            tB_CATEGORIES = list.Find(c => c.id_cat == id);
+            
+            TB_CATEGORIES tB_CATEGORIES = db.TB_CATEGORIES.Find(id);
+            
             if (tB_CATEGORIES == null)
             {
                 return NotFound();
@@ -44,18 +42,13 @@ namespace PressNews.Api.Controllers
         }
 
         // PUT: api/Categories/5
-        [Route("api/PutCategory/{id}")]
-        [HttpPut()]
-        public IHttpActionResult Put(int id, TB_CATEGORIES tB_CATEGORIES)
+        [Route("api/UpdateCategory")]
+        [HttpPost()]
+        public IHttpActionResult Put(TB_CATEGORIES tB_CATEGORIES)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != tB_CATEGORIES.id_cat)
-            {
-                return BadRequest();
             }
 
             db.Entry(tB_CATEGORIES).State = EntityState.Modified;
@@ -66,7 +59,7 @@ namespace PressNews.Api.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TB_CATEGORIESExists(id))
+                if (!TB_CATEGORIESExists(tB_CATEGORIES.id_cat))
                 {
                     return NotFound();
                 }
@@ -76,36 +69,15 @@ namespace PressNews.Api.Controllers
                 }
             }
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(tB_CATEGORIES);
         }
 
-        // POST: api/Categories
-        //[HttpPost()]
-        //public IHttpActionResult Post(TB_CATEGORIES tB_CATEGORIES)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
-
-        //    db.TB_CATEGORIES.Add(tB_CATEGORIES);
-        //    db.SaveChanges();
-
-        //    return StatusCode(HttpStatusCode.NoContent);
-        //}
+       
         [Route("api/PostCategory")]
         [HttpPost()]
         public IHttpActionResult Post(TB_CATEGORIES tB_CATEGORIES)
         {
 
-            int newId = 0;
-            List<TB_CATEGORIES> list = db.TB_CATEGORIES.ToList();
-
-            // Get the last id
-            newId = list.Max(c => c.id_cat);
-            newId++;
-            tB_CATEGORIES.id_cat = newId;
-           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -114,41 +86,26 @@ namespace PressNews.Api.Controllers
             db.TB_CATEGORIES.Add(tB_CATEGORIES);
             db.SaveChanges();
 
-            return StatusCode(HttpStatusCode.NoContent);
+            return Ok(new { id_cat = tB_CATEGORIES.id_cat });
         }
 
-        private bool Add(TB_CATEGORIES tB_CATEGORIES)
-        {
-            int newId = 0;
-            List<TB_CATEGORIES> list = db.TB_CATEGORIES.ToList();
-
-            // Get the last id
-            newId = list.Max(c => c.id_cat);
-            newId++;
-            tB_CATEGORIES.id_cat = newId;
-            // Add to list
-            list.Add(tB_CATEGORIES);
-
-            // TODO: Change this to false to test the NotFound()
-            return true;
-        }
-
-
+        // Changed to Get because by default ASP.NET does not handle DELETE, PUT, and PATCH verbs 
+        //because the WebDAV handler intercepts them. I've tried to change the web.config but still no handling
         // DELETE: api/Categories/5
-        [ResponseType(typeof(TB_CATEGORIES))]
-        [Route("api/DeleteCategory")]
-        public async Task<IHttpActionResult> DeleteTB_CATEGORIES(int id)
+        [HttpGet()]
+        [Route("api/DeleteCategory/{id}")]
+        public IHttpActionResult Delete(int id)
         {
-            TB_CATEGORIES tB_CATEGORIES = await db.TB_CATEGORIES.FindAsync(id);
+            TB_CATEGORIES tB_CATEGORIES = db.TB_CATEGORIES.Find(id);
             if (tB_CATEGORIES == null)
             {
                 return NotFound();
             }
 
             db.TB_CATEGORIES.Remove(tB_CATEGORIES);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return StatusCode(HttpStatusCode.NoContent); ;
+            return Ok(new { id_cat = tB_CATEGORIES.id_cat }); ;
         }
 
         protected override void Dispose(bool disposing)
