@@ -44,9 +44,9 @@ namespace PressNews.Api.Controllers
         }
 
         // PUT: api/Categories/5
-        [ResponseType(typeof(void))]
-        [Route("api/PutCategory")]
-        public async Task<IHttpActionResult> PutTB_CATEGORIES(int id, TB_CATEGORIES tB_CATEGORIES)
+        [Route("api/PutCategory/{id}")]
+        [HttpPut()]
+        public IHttpActionResult Put(int id, TB_CATEGORIES tB_CATEGORIES)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace PressNews.Api.Controllers
 
             try
             {
-                await db.SaveChangesAsync();
+                db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -80,9 +80,32 @@ namespace PressNews.Api.Controllers
         }
 
         // POST: api/Categories
-        [HttpPost]
+        //[HttpPost()]
+        //public IHttpActionResult Post(TB_CATEGORIES tB_CATEGORIES)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    db.TB_CATEGORIES.Add(tB_CATEGORIES);
+        //    db.SaveChanges();
+
+        //    return StatusCode(HttpStatusCode.NoContent);
+        //}
+        [Route("api/PostCategory")]
+        [HttpPost()]
         public IHttpActionResult Post(TB_CATEGORIES tB_CATEGORIES)
         {
+
+            int newId = 0;
+            List<TB_CATEGORIES> list = db.TB_CATEGORIES.ToList();
+
+            // Get the last id
+            newId = list.Max(c => c.id_cat);
+            newId++;
+            tB_CATEGORIES.id_cat = newId;
+           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -93,6 +116,23 @@ namespace PressNews.Api.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        private bool Add(TB_CATEGORIES tB_CATEGORIES)
+        {
+            int newId = 0;
+            List<TB_CATEGORIES> list = db.TB_CATEGORIES.ToList();
+
+            // Get the last id
+            newId = list.Max(c => c.id_cat);
+            newId++;
+            tB_CATEGORIES.id_cat = newId;
+            // Add to list
+            list.Add(tB_CATEGORIES);
+
+            // TODO: Change this to false to test the NotFound()
+            return true;
+        }
+
 
         // DELETE: api/Categories/5
         [ResponseType(typeof(TB_CATEGORIES))]
@@ -108,7 +148,7 @@ namespace PressNews.Api.Controllers
             db.TB_CATEGORIES.Remove(tB_CATEGORIES);
             await db.SaveChangesAsync();
 
-            return Ok(tB_CATEGORIES);
+            return StatusCode(HttpStatusCode.NoContent); ;
         }
 
         protected override void Dispose(bool disposing)

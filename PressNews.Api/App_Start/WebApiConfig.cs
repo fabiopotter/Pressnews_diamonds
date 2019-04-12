@@ -20,24 +20,6 @@ namespace PressNews.Api
 
         }
 
-        /*        private static void AddRoutes(HttpConfiguration config)
-                {
-                    config.Routes.MapHttpRoute(
-                        name: "DefaultApi",
-                        routeTemplate: "api/{controller}/{id}",
-                        defaults: new { id = RouteParameter.Optional }
-                    );
-                }
-        */
-        /*        private static void EnableCrossSiteRequests(HttpConfiguration config)
-                {
-                    var cors = new EnableCorsAttribute(
-                        origins: "*",
-                        headers: "*",
-                        methods: "*");
-                    config.EnableCors(cors);
-                }
-            }*/
     }
 }
 
