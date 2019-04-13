@@ -10,6 +10,6 @@
 namespace PressNews.WebForm {
     
     
-    public partial class Main {
+    public partial class Gallery {
     }
 }

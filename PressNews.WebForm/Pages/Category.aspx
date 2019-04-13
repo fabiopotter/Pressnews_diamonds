@@ -1,4 +1,12 @@
-﻿<%@ Page Title="Main Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Main.aspx.cs" Inherits="PressNews.WebForm.Main" %>
+﻿<%@ Page Title="Category Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Category.aspx.cs" Inherits="PressNews.WebForm.Category" %>
+
+<asp:Content id="HeadContent" ContentPlaceHolderID="Header" runat="server">
+<div class="topnav">
+   <a class="active" href="Login.aspx">Logout</a>
+  <a href="News.aspx"">News</a>
+
+</div>
+</asp:Content>
 
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
@@ -39,14 +47,14 @@
   <div class="row">
     <div class="col-sm-6">
       <input type="hidden" id="id_cat" value="0" />
+        <input type="hidden" id="nm_img" value="0" />
         <table id="categoryTable"
                class="table table-bordered table-condensed table-striped">
           <thead>
             <tr>
               <th>Edit</th>
               <th>Category</th>
-              <th>URL Image</th>
-              <th>Date Add</th>
+              <th>Image</th>
               <th>Delete</th>  
             </tr>
           </thead>
@@ -66,29 +74,21 @@
                       <div class="panel-body">
                         <div class="form-group">
                               <label for="categoryname">
-                                Product Name
+                                Category Name
                               </label>
                               <input type="text"
                                      class="form-control"
                                      id="categoryname" />
                             </div>
                             <div class="form-group">
-                              <label for="introdate">
-                                Introduction Date
-                              </label>
-                              <input type="date"
-                                     class="form-control"
-                                     id="introdate" />
-                            </div>
-                            <div class="form-group">
                               <label for="url">
-                                URL
+                                Image
                               </label>
-                              <input type="url"
-                                     class="form-control"
-                                     id="url" />
+                              <input type="file"
+                                     id="image" />
                             </div>
-                      </div>
+                            <input id="btnUploadFile" type="button" value="Upload File" class="btn btn-primary" />
+                        </div>
                       <div class="panel-footer">
                         <div class="row">
                           <div class="col-xs-12">

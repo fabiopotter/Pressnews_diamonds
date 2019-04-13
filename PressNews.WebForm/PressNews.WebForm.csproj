@@ -125,11 +125,37 @@
     <Content Include="Content\build\images\loading.gif" />
     <Content Include="Content\build\js\custom.js" />
     <Content Include="Content\build\js\custom.min.js" />
+    <Content Include="Content\css\ajax-loader.gif" />
+    <Content Include="Content\css\animate.css" />
+    <Content Include="Content\css\aos.css" />
+    <Content Include="Content\css\bootstrap-datepicker.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap\bootstrap-grid.css" />
+    <Content Include="Content\css\bootstrap\bootstrap-reboot.css" />
+    <Content Include="Content\css\css\bootstrap-reboot.css" />
+    <Content Include="Content\css\css\mixins\_text-hide.css" />
+    <Content Include="Content\css\flaticon.css" />
+    <Content Include="Content\css\icomoon.css" />
+    <Content Include="Content\css\ionicons.min.css" />
+    <Content Include="Content\css\jquery.timepicker.css" />
+    <Content Include="Content\css\magnific-popup.css" />
+    <Content Include="Content\css\open-iconic-bootstrap.min.css" />
+    <Content Include="Content\css\owl.carousel.min.css" />
+    <Content Include="Content\css\owl.theme.default.min.css" />
+    <Content Include="Content\css\style.css" />
     <Content Include="Content\font-awesome\.gitignore" />
     <Content Include="Content\font-awesome\css\font-awesome.css" />
     <Content Include="Content\font-awesome\css\font-awesome.min.css" />
     <Content Include="Content\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\font-awesome\HELP-US-OUT.txt" />
+    <Content Include="Content\fonts\flaticon\backup.txt" />
+    <Content Include="Content\fonts\flaticon\font\flaticon.css" />
+    <Content Include="Content\fonts\flaticon\font\flaticon.html" />
+    <Content Include="Content\fonts\flaticon\font\Flaticon.svg" />
+    <Content Include="Content\fonts\icomoon\icomoon.svg" />
+    <Content Include="Content\fonts\ionicons\css\ionicons.min.css" />
+    <Content Include="Content\fonts\ionicons\fonts\ionicons.svg" />
+    <Content Include="Content\fonts\open-iconic\open-iconic.svg" />
     <Content Include="Content\jquery\AUTHORS.txt" />
     <Content Include="Content\jquery\dist\jquery.js" />
     <Content Include="Content\jquery\dist\jquery.min.js" />
@@ -238,8 +264,9 @@
     <Content Include="Content\nprogress\nprogress.js" />
     <Content Include="Content\nprogress\support\extras.css" />
     <Content Include="Content\nprogress\support\style.css" />
+    <Content Include="Pages\Gallery.aspx" />
     <Content Include="Pages\News.aspx" />
-    <Content Include="Pages\Main.aspx" />
+    <Content Include="Pages\Category.aspx" />
     <Content Include="Pages\Contact.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -315,10 +342,34 @@
     <Content Include="Content\jquery\external\sizzle\dist\sizzle.min.map" />
     <Content Include="Content\jquery\README.md" />
     <Content Include="Content\jquery\src\.jshintrc" />
+    <Content Include="Content\css\.DS_Store" />
+    <Content Include="Content\css\bootstrap\.DS_Store" />
+    <Content Include="Content\css\css\.DS_Store" />
+    <Content Include="Content\fonts\.DS_Store" />
+    <Content Include="Content\fonts\flaticon\.DS_Store" />
+    <Content Include="Content\fonts\flaticon\font\Flaticon.eot" />
+    <Content Include="Content\fonts\flaticon\font\Flaticon.ttf" />
+    <Content Include="Content\fonts\flaticon\font\Flaticon.woff" />
+    <Content Include="Content\fonts\flaticon\font\_flaticon.scss" />
+    <Content Include="Content\fonts\flaticon\license\license.pdf" />
+    <Content Include="Content\fonts\icomoon\icomoon.eot" />
+    <Content Include="Content\fonts\icomoon\icomoon.ttf" />
+    <Content Include="Content\fonts\icomoon\icomoon.woff" />
+    <Content Include="Content\fonts\ionicons\css\_ionicons.scss" />
+    <Content Include="Content\fonts\ionicons\fonts\.DS_Store" />
+    <Content Include="Content\fonts\ionicons\fonts\ionicons.eot" />
+    <Content Include="Content\fonts\ionicons\fonts\ionicons.ttf" />
+    <Content Include="Content\fonts\ionicons\fonts\ionicons.woff" />
+    <Content Include="Content\fonts\ionicons\fonts\ionicons.woff2" />
+    <Content Include="Content\fonts\open-iconic\open-iconic.eot" />
+    <Content Include="Content\fonts\open-iconic\open-iconic.otf" />
+    <Content Include="Content\fonts\open-iconic\open-iconic.ttf" />
+    <Content Include="Content\fonts\open-iconic\open-iconic.woff" />
     <None Include="Scripts\jquery-3.3.1-vsdoc.js" />
     <Content Include="Pages\Register.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Gallery.js" />
     <Content Include="Scripts\News.js" />
     <Content Include="Scripts\Category.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -358,6 +409,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Pages\Gallery.aspx.cs">
+      <DependentUpon>Gallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pages\Gallery.aspx.designer.cs">
+      <DependentUpon>Gallery.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Pages\News.aspx.cs">
       <DependentUpon>News.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -365,12 +423,12 @@
     <Compile Include="Pages\News.aspx.designer.cs">
       <DependentUpon>News.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Main.aspx.cs">
-      <DependentUpon>Main.aspx</DependentUpon>
+    <Compile Include="Pages\Category.aspx.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Pages\Main.aspx.designer.cs">
-      <DependentUpon>Main.aspx</DependentUpon>
+    <Compile Include="Pages\Category.aspx.designer.cs">
+      <DependentUpon>Category.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Pages\Contact.aspx.cs">

@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PressNews.Api.Models;
@@ -39,6 +41,27 @@ namespace PressNews.Api.Controllers
             }
 
             return Ok(tB_CATEGORIES);
+        }
+       
+        [HttpPost()]
+        public void UploadFile()
+        {
+            if (HttpContext.Current.Request.Files.AllKeys.Any())
+            {
+                // Get the uploaded image from the Files collection
+                var httpPostedFile = HttpContext.Current.Request.Files["UploadedImage"];
+
+                if (httpPostedFile != null)
+                {
+                    // Validate the uploaded image(optional)
+
+                    // Get the complete file path
+                    var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/images"), httpPostedFile.FileName);
+
+                    // Save the uploaded file to "UploadedFiles" folder
+                    httpPostedFile.SaveAs(fileSavePath);
+                }
+            }
         }
 
         // PUT: api/Categories/5
@@ -82,6 +105,8 @@ namespace PressNews.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            tB_CATEGORIES.dt_icl = DateTime.Now;
 
             db.TB_CATEGORIES.Add(tB_CATEGORIES);
             db.SaveChanges();

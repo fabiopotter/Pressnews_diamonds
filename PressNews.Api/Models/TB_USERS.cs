@@ -11,10 +11,14 @@ namespace PressNews.Api.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TB_USERS
     {
         public int id_usr { get; set; }
+        [Required]
+        [MaxLength(10)]
+        [MinLength(5)]
         public string nm_lgnusr { get; set; }
         public string ds_emlusr { get; set; }
         public string ds_pwdusr { get; set; }

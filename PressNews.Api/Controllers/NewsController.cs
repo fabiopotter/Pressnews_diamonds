@@ -69,7 +69,10 @@ namespace PressNews.Api.Controllers
                 }
             }
 
-            return Ok(tB_NEWS);
+
+            var news = db.TB_NEWS.Include("TB_CATEGORIES").SingleOrDefault(n => n.id_new == tB_NEWS.id_new);
+
+            return Ok(news);
         }
 
         // POST: api/News
@@ -77,17 +80,42 @@ namespace PressNews.Api.Controllers
         [HttpPost()]
         public IHttpActionResult Post(TB_NEWS tB_NEWS)
         {
+            string erro = "";
+
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
-            }
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
 
+                erro = modelErrors.First();
+
+                return BadRequest(erro);
+
+            }
             tB_NEWS.dt_icl = DateTime.Now;
+
+
+            /*
+             var reward = new Reward { CampaignId = 1 };
+                context.Set<Reward>().Add(reward);
+                context.SaveChanges();
+
+                reward = context.Set<Reward>().SingleOrDefault(a => a.Id == reward.Id);
+            */
 
             db.TB_NEWS.Add(tB_NEWS);
             db.SaveChanges();
 
-            return Ok( new { id_new = tB_NEWS.id_new });
+            var news = db.TB_NEWS.Include("TB_CATEGORIES").SingleOrDefault(n => n.id_new == tB_NEWS.id_new);
+
+            //return Ok( new { id_new = tB_NEWS.id_new });
+            return Ok(news);
         }
 
         // Changed to Get because by default ASP.NET does not handle DELETE, PUT, and PATCH verbs 

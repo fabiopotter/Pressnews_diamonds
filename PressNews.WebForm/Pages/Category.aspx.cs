@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace PressNews.WebForm
 {
-    public partial class Main : Page
+    public partial class Category : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

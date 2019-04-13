@@ -86,10 +86,8 @@ function newsBuildTableRow(news) {
 function handleException(request, message,
     error) {
     var msg = "";
-    msg += "Code: " + request.status + "\n";
-    msg += "Text: " + request.statusText + "\n";
     if (request.responseJSON !== null) {
-        msg += "Message" +
+        msg += "Message: " +
             request.responseJSON.Message + "\n";
     }
     alert(msg);
@@ -196,7 +194,7 @@ function newsUpdate(news) {
         datatype: "json",
         data: newvar,
         success: function (data) {
-            newsUpdateSuccess(newvar);
+            newsUpdateSuccess(data);
         },
         error: function (request, message, error) {
             handleException(request, message, error);
@@ -221,11 +219,14 @@ function newsAdd(news) {
         data: newvar,
         success: function (data) {
             newvar.id_new = data.id_new;
-            newvar = GetNewsAfterInsert(data.id_new);
+
+            newvar.TB_CATEGORIES = data.TB_CATEGORIES;
+
             newsAddSuccess(newvar);
         },
         error: function (request, message, error) {
             handleException(request, message, error);
+            
         }
     });
 }

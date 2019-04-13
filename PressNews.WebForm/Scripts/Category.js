@@ -1,5 +1,29 @@
 ﻿$(document).ready(function () {
     categoryList();
+    $('#btnUploadFile').on('click', function () {
+
+        var data = new FormData();
+
+        var files = $("#image").get(0).files;
+
+        // Add the uploaded image content to the form data collection
+        if (files.length > 0) {
+            data.append("UploadedImage", files[0]);
+        }
+
+        // Make Ajax request with the contentType = false, and procesDate = false
+        var ajaxRequest = $.ajax({
+            type: "POST",
+            url: "http://localhost:51076/api/Categories/uploadfile",
+            contentType: false,
+            processData: false,
+            data: data
+        });
+
+        ajaxRequest.done(function (xhr, textStatus) {
+            // Do other operation
+        });
+    });
 });
 
 
@@ -10,6 +34,7 @@ function categoryList() {
         dataType: 'json',
         success: function (categories) {
             categoryListSuccess(categories);
+
         },
         error: function (request, message, error) {
             handleException(request, message, error);
@@ -22,6 +47,7 @@ function categoryListSuccess(categories) {
     $.each(categories, function (index, category) {
         // Add a row to the Category table
         categoryAddRow(category);
+        
     });
 }
 
@@ -33,9 +59,11 @@ function categoryAddRow(category) {
     // Append row to <table>
     $("#categoryTable tbody").append(
         categoryBuildTableRow(category));
+    
 }
 //Build Table Function
 function categoryBuildTableRow(category) {
+
     var ret =
         "<tr>" +
         "<td>" +
@@ -47,8 +75,7 @@ function categoryBuildTableRow(category) {
         "</button>" +
         "</td >" +
         "<td>" + category.nm_cat + "</td>" +
-        "<td>" + category.ds_imgcat + "</td>" +
-        "<td>" + category.dt_icl + "</td>" +
+        "<td><img id='imgFile' alt ='' src ='http://localhost:51076/images/" + category.ds_imgcat + "'/></td>" +
         "<td>" +
         "<button type='button' " +
         "onclick='categoryDelete(this);' " +
@@ -87,7 +114,6 @@ function categoryGet(ctl) {
         dataType: 'json',
         success: function (category) {
             categoryToFields(category);
-
             // Change Update Button Text
             $("#updateButton").text("Update");
         },
@@ -100,7 +126,7 @@ function categoryGet(ctl) {
 function categoryToFields(category) {
     $("#categoryname").val(category.nm_cat);
     $("#introdate").val(category.dt_icl);
-    $("#url").val(category.ds_imgcat);
+    $("#nm_img").val(category.ds_imgcat);
 }
 
 
@@ -111,7 +137,7 @@ function categoryAddSuccess(category) {
 function formClear() {
     $("#categoryname").val("");
     $("#introdate").val("");
-    $("#url").val("");
+    $("#image").val("");
 }
 function addClick() {
     formClear();
@@ -123,7 +149,11 @@ function updateClick() {
     Category.id_cat = $("#id_cat").val();
     Category.nm_cat = $("#categoryname").val();
     Category.dt_icl = $("#introdate").val();
-    Category.ds_imgcat = $("#url").val();
+    //var imgInput = document.getElementById('image');
+    //Category.ds_imgcat = $("#image").val();
+
+    //var file = document.querySelector('input[type=file]');
+    Category.ds_imgcat = "";
 
     if ($("#updateButton").text().trim() == "Add") {
         categoryAdd(Category);
@@ -134,9 +164,11 @@ function updateClick() {
 }
 
 
+
+
 function categoryUpdate(category) {
     //var url = "http://localhost:51076/api/PutCategory/" + category.id_cat;
-    var cat = { "id_cat": category.id_cat, "nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat, "dt_icl": category.dt_icl };
+    var cat = { "id_cat": category.id_cat, "nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat };
     // Call Web API to update Category
     $.ajax({
         url: "http://localhost:51076/api/UpdateCategory/",
@@ -160,7 +192,9 @@ function categoryUpdateSuccess(category) {
 function categoryAdd(category) {
     // Call Web API to add a new Category
 
-    var cat = { "id_cat": 0,"nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat, "dt_icl": category.dt_icl };
+    var ImgInput = document.getElementById('')
+
+    var cat = { "id_cat": 0,"nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat };
     $.ajax({
         url: "http://localhost:51076/api/PostCategory",
         type: 'POST',
@@ -170,6 +204,7 @@ function categoryAdd(category) {
         success: function (data) {
             cat.id_cat = data.id_cat;
             categoryAddSuccess(cat);
+            
         },
         error: function (request, message, error) {
             handleException(request, message, error);
@@ -188,10 +223,8 @@ function categoryUpdateInTable(category) {
     $(row).after(categoryBuildTableRow(category));
     // Remove original Category
     $(row).remove();
-
     // Clear form fields
     formClear();
-
     // Change Update Button Text
     $("#updateButton").text("Add");
 }
@@ -214,3 +247,5 @@ function categoryDelete(ctl) {
         }
     });
 }
+
+

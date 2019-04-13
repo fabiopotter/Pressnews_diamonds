@@ -13,6 +13,15 @@ namespace PressNews.WebForm {
     public partial class SiteMaster {
         
         /// <summary>
+        /// Controle Header.
+        /// </summary>
+        /// <remarks>
+        /// Campo gerado automaticamente.
+        /// Modificar a declaração do campo de movimento do arquivo de designer para o arquivo code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder Header;
+        
+        /// <summary>
         /// Controle MainContent.
         /// </summary>
         /// <remarks>

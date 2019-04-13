@@ -23,7 +23,7 @@ $(document).ready(function () {
             datatype: "json",
             type: "post",
             success: function () {
-                window.location.href = 'http://localhost:50427/pages/Main.aspx';
+                window.location.href = 'http://localhost:50427/pages/Category.aspx';
             },
             error: function () {
                 alert('error!');

@@ -1,7 +1,16 @@
 ﻿<%@ Page Title="Main Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="News.aspx.cs" Inherits="PressNews.WebForm.News" %>
 
+<asp:Content id="HeadContent" ContentPlaceHolderID="Header" runat="server">
+<div class="topnav">
+   <a class="active" href="Login.aspx">Logout</a>
+  <a href="Category.aspx"">Category</a>
 
+</div>
+</asp:Content>
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
+
+
+
 <!DOCTYPE html>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -24,7 +33,9 @@
  
 </script>
         
-</head>
+
+
+
 
 <body>
     <div class="container">
@@ -117,5 +128,6 @@
                   </div>
     </div>
   </div>
+
 </html>
-</asp:Content>
+        </asp:Content>

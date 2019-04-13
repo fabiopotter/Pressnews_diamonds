@@ -11,7 +11,8 @@ namespace PressNews.Api.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TB_CATEGORIES
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,10 @@ namespace PressNews.Api.Models
         }
     
         public int id_cat { get; set; }
+        [Required]
+        [MaxLength(50)]
         public string nm_cat { get; set; }
+        [Required]
         public string ds_imgcat { get; set; }
         public System.DateTime dt_icl { get; set; }
     

@@ -11,13 +11,22 @@ namespace PressNews.Api.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TB_NEWS
     {
         public int id_new { get; set; }
+        [Required]
+        [MaxLength(50)]
         public string nm_new { get; set; }
+        [Required]
+        [MaxLength(100)]
         public string ds_txtnew { get; set; }
+        [Required]
+        [MaxLength(100)]
+        [Url(ErrorMessage = "Please enter a valid url")]
         public string ds_urlnew { get; set; }
+        [Required]
         public System.DateTime dt_new { get; set; }
         public System.DateTime dt_icl { get; set; }
         public Nullable<int> id_cat { get; set; }
