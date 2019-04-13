@@ -22,15 +22,15 @@ namespace PressNews.Api.Controllers
         [HttpGet()]
         // GET: api/News
         public IEnumerable<TB_NEWS> GetAll()
-        {
-            return db.TB_NEWS;
+        {   
+            return db.TB_NEWS.Include("TB_CATEGORIES");
         }
 
         // GET: api/News/5
         [HttpGet()]
         public IHttpActionResult Get(int id)
         {
-            TB_NEWS tB_NEWS = db.TB_NEWS.Find(id);
+            TB_NEWS tB_NEWS = db.TB_NEWS.Include("TB_CATEGORIES").Where(n=> n.id_new == id).FirstOrDefault();
             if (tB_NEWS == null)
             {
                 return NotFound();
@@ -48,6 +48,8 @@ namespace PressNews.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            tB_NEWS.dt_icl = DateTime.Now;
 
             db.Entry(tB_NEWS).State = EntityState.Modified;
 
@@ -79,6 +81,8 @@ namespace PressNews.Api.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            tB_NEWS.dt_icl = DateTime.Now;
 
             db.TB_NEWS.Add(tB_NEWS);
             db.SaveChanges();

@@ -1,7 +1,26 @@
 ﻿$(document).ready(function () {
     newsList();
+    getCat();
 });
 
+function getCat() {
+   
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:51076/api/GetCategories",
+            dataType: 'json',
+            data: {},
+            success: function (result) {
+                $.each(result, function (i) {
+                    $('#catlist').append($('<option></option>').val(result[i].id_cat).html(result[i].nm_cat));
+                });
+            },
+            failure: function () {
+                alert("Error");
+            }
+        });
+
+}
 
 function newsList() {
     $.ajax({
@@ -40,7 +59,7 @@ function newsBuildTableRow(news) {
         "<tr>" +
         "<td>" +
         "<button type='button' " +
-        "onclick='categoryGet(this);' " +
+        "onclick='newsGet(this);' " +
         "class='btn btn-default' " +
         "data-id='" + news.id_new + "'>" +
         "<span class='glyphicon glyphicon-edit' />" +
@@ -50,15 +69,17 @@ function newsBuildTableRow(news) {
         "<td>" + news.ds_txtnew + "</td>" +
         "<td>" + news.dt_new + "</td>" +
         "<td>" + news.ds_urlnew + "</td>" +
+        "<td>" + news.TB_CATEGORIES.nm_cat + "</td>" +
         "<td>" +
         "<button type='button' " +
-        "onclick='categoryDelete(this);' " +
+        "onclick='newsDelete(this);' " +
         "class='btn btn-default' " +
         "data-id='" + news.id_new + "'>" +
         "<span class='glyphicon glyphicon-remove' />" +
         "</button>" +
         "</td>" +
         "</tr>";
+    $("#id_cat").val(news.TB_CATEGORIES.id_cat);
     return ret;
 }
 
@@ -98,11 +119,36 @@ function newsGet(ctl) {
     });
 }
 
+function GetNewsAfterInsert(data) {
+    // Get Category id from data- attribute
+    var id = data;
+
+    // Store Category id in hidden field
+    //$("#id_new").val(data);
+
+    // Call Web API to get a list of Categorys
+    $.ajax({
+        url: "http://localhost:51076/api/News/" + id,
+        type: 'GET',
+        dataType: 'json',
+        success: function (news) {
+            newsToFields(news);
+
+            // Change Update Button Text
+            $("#updateButton").text("Update");
+        },
+        error: function (request, message, error) {
+            handleException(request, message, error);
+        }
+    });
+}
+
 function newsToFields(news) {
     $("#newsname").val(news.nm_new);
     $("#newsdesc").val(news.ds_txtnew);
     $("#newsdate").val(news.dt_new);
     $("#newsurl").val(news.ds_urlnew);
+    $("#catlist").val(news.TB_CATEGORIES.id_cat); 
 }
 
 
@@ -115,6 +161,7 @@ function formClear() {
     $("#newsdesc").val("");
     $("#newsdate").val("");
     $("#newsurl").val("");
+    $("#catlist").val("");
 }
 function addClick() {
     formClear();
@@ -128,6 +175,7 @@ function updateClick() {
     News.ds_txtnew = $("#newsdesc").val();
     News.dt_new = $("#newsdate").val();
     News.ds_urlnew = $("#newsurl").val();
+    News.id_cat = $("#catlist").val();
 
     if ($("#updateButton").text().trim() == "Add") {
         newsAdd(News);
@@ -139,7 +187,8 @@ function updateClick() {
 
 
 function newsUpdate(news) {
-    var newvar = { "id_new": news.id_new, "nm_new": news.nm_new, "ds_txtnew": news.ds_txtnew, "dt_new": news.dt_new, "ds_urlnew": news.ds_urlnew };
+   
+    var newvar = { "id_new": news.id_new, "nm_new": news.nm_new, "ds_txtnew": news.ds_txtnew, "dt_new": news.dt_new, "ds_urlnew": news.ds_urlnew, "id_cat": news.id_cat };
     // Call Web API to update Category
     $.ajax({
         url: "http://localhost:51076/api/UpdateNews/",
@@ -147,7 +196,7 @@ function newsUpdate(news) {
         datatype: "json",
         data: newvar,
         success: function (data) {
-            newsUpdateSuccess(cat);
+            newsUpdateSuccess(newvar);
         },
         error: function (request, message, error) {
             handleException(request, message, error);
@@ -163,7 +212,7 @@ function newsUpdateSuccess(news) {
 function newsAdd(news) {
     // Call Web API to add a new Category
 
-    var newvar = { "id_new": 0, "nm_new": news.nm_new, "ds_txtnew": news.ds_txtnew, "dt_new": news.dt_new, "ds_urlnew": news.ds_urlnew, "id_cat": 1 };
+    var newvar = { "id_new": 0, "nm_new": news.nm_new, "ds_txtnew": news.ds_txtnew, "dt_new": news.dt_new, "ds_urlnew": news.ds_urlnew, "id_cat": news.id_cat };
     $.ajax({
         url: "http://localhost:51076/api/PostNews",
         type: 'POST',
@@ -172,6 +221,7 @@ function newsAdd(news) {
         data: newvar,
         success: function (data) {
             newvar.id_new = data.id_new;
+            newvar = GetNewsAfterInsert(data.id_new);
             newsAddSuccess(newvar);
         },
         error: function (request, message, error) {

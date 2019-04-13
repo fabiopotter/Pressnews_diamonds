@@ -14,16 +14,9 @@
           <Property Name="ds_imgcat" Type="varchar" MaxLength="100" />
           <Property Name="dt_icl" Type="datetime" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'db_pressnews﻿.dbo.TB_NEWS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="TB_NEWS">
           <Key>
             <PropertyRef Name="id_new" />
-            <PropertyRef Name="nm_new" />
-            <PropertyRef Name="ds_txtnew" />
-            <PropertyRef Name="ds_urlnew" />
-            <PropertyRef Name="dt_new" />
-            <PropertyRef Name="dt_icl" />
           </Key>
           <Property Name="id_new" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nm_new" Type="varchar" MaxLength="70" Nullable="false" />
@@ -65,17 +58,7 @@ warning 6002: The table/view 'db_pressnews﻿.dbo.TB_USERS' does not have a prim
         </Association>
         <EntityContainer Name="db_pressnewsModelStoreContainer">
           <EntitySet Name="TB_CATEGORIES" EntityType="Self.TB_CATEGORIES" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TB_NEWS" EntityType="Self.TB_NEWS" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [TB_NEWS].[id_new] AS [id_new], 
-    [TB_NEWS].[nm_new] AS [nm_new], 
-    [TB_NEWS].[ds_txtnew] AS [ds_txtnew], 
-    [TB_NEWS].[ds_urlnew] AS [ds_urlnew], 
-    [TB_NEWS].[dt_new] AS [dt_new], 
-    [TB_NEWS].[dt_icl] AS [dt_icl], 
-    [TB_NEWS].[id_cat] AS [id_cat]
-    FROM [dbo].[TB_NEWS] AS [TB_NEWS]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="TB_NEWS" EntityType="Self.TB_NEWS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TB_USERS" EntityType="Self.TB_USERS" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [TB_USERS].[id_usr] AS [id_usr], 
@@ -128,11 +111,6 @@ warning 6002: The table/view 'db_pressnews﻿.dbo.TB_USERS' does not have a prim
         <EntityType Name="TB_NEWS">
           <Key>
             <PropertyRef Name="id_new" />
-            <PropertyRef Name="nm_new" />
-            <PropertyRef Name="ds_txtnew" />
-            <PropertyRef Name="ds_urlnew" />
-            <PropertyRef Name="dt_new" />
-            <PropertyRef Name="dt_icl" />
           </Key>
           <Property Name="id_new" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nm_new" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="false" />
@@ -196,7 +174,7 @@ warning 6002: The table/view 'db_pressnews﻿.dbo.TB_USERS' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

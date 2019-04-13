@@ -38,7 +38,8 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <input type="hidden" id="id_cat" value="0" />
+      <input type="hidden" id="id_new" value="0" />
+        <input type="hidden" id="id_cat" value="0" />
         <table id="newsTable"
                class="table table-bordered table-condensed table-striped">
           <thead>
@@ -48,6 +49,7 @@
               <th>Text</th>
               <th>News Date</th>
               <th>Link Url</th>
+              <th>Category</th>
               <th>Delete</th>  
             </tr>
           </thead>
@@ -96,6 +98,13 @@
                               <input type="url"
                                      class="form-control"
                                      id="newsurl" />
+                            </div>
+                          <div class="form-group">
+                              <label for="url">
+                                Category
+                              </label>
+                              <select class="form-control" id="catlist" style="height:110%;">
+                              </select> 
                             </div>
                       </div>
                       <div class="panel-footer">
