@@ -11,8 +11,8 @@ function categoryList() {
         dataType: 'json',
         success: function (categories) {
             for (var i = 0; i < categories.length; i++) {
-                var element = $('<div class="col-md-4 text-center">  <figure><a href ="CategoryDetails.aspx?id_cat=' + categories[i].id_cat + '">  <img class="imgTable" src="http://localhost:51076/images/' +
-                    categories[i].ds_imgcat + '"><div class="middle"><div class="text" id="catName">' + categories[i].nm_cat + "<div> </div></a></figure></div>");
+                var element = $('<div class="col-md-4 text-center">  <article><a href ="CategoryDetails.aspx?id_cat=' + categories[i].id_cat + '">  <img class="imgBkg" src="http://localhost:51076/images/' +
+                    categories[i].ds_imgcat + '"><div class="middle"><div class="text" id="catName"><h3>SHOW NEWS</h3><div class="text"><div></div></a></article></div>');
                     $("#galleryTable").append(element);
 
             }                  
