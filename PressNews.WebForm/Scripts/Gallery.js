@@ -11,11 +11,10 @@ function categoryList() {
         dataType: 'json',
         success: function (categories) {
             for (var i = 0; i < categories.length; i++) {
-                //Now that you are iterating the people objects, iterate the keys of the object
+                var element = $('<div class="col-md-4 text-center">  <figure><a href ="CategoryDetails.aspx?id_cat=' + categories[i].id_cat + '">  <img class="imgTable" src="http://localhost:51076/images/' +
+                    categories[i].ds_imgcat + '"><div class="middle"><div class="text" id="catName">' + categories[i].nm_cat + "<div> </div></a></figure></div>");
+                    $("#galleryTable").append(element);
 
-                //Append h1 with key name and its value
-                //$("#galleryTable").append('<div class="col sm- 4"' > + categories[i].nm_cat + "</div>");
-                $("#galleryTable").append("<a href='Press.aspx' onClick='goToPage(this," + categories[i].id_cat + ");'>" + categories[i].nm_cat + "</a>");
             }                  
 
         },

@@ -11,13 +11,23 @@
             data.append("UploadedImage", files[0]);
         }
 
+        var name = files[0].name;
+
+        $("#nm_img").val(name);
+
         // Make Ajax request with the contentType = false, and procesDate = false
         var ajaxRequest = $.ajax({
             type: "POST",
             url: "http://localhost:51076/api/Categories/uploadfile",
             contentType: false,
             processData: false,
-            data: data
+            data: data,
+            success: function () {
+                alert('File Upload Successful');
+            },
+            error: function (request, message, error) {
+                handleException(request, message, error);
+            }    
         });
 
         ajaxRequest.done(function (xhr, textStatus) {
@@ -153,7 +163,7 @@ function updateClick() {
     //Category.ds_imgcat = $("#image").val();
 
     //var file = document.querySelector('input[type=file]');
-    Category.ds_imgcat = "";
+    Category.ds_imgcat = $('#nm_img');
 
     if ($("#updateButton").text().trim() == "Add") {
         categoryAdd(Category);
@@ -194,7 +204,9 @@ function categoryAdd(category) {
 
     var ImgInput = document.getElementById('')
 
-    var cat = { "id_cat": 0,"nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat };
+    var name = $("#nm_img").val();
+
+    var cat = { "id_cat": 0,"nm_cat": category.nm_cat, "ds_imgcat": name };
     $.ajax({
         url: "http://localhost:51076/api/PostCategory",
         type: 'POST',

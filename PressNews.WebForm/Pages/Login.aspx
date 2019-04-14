@@ -29,9 +29,9 @@
 
 <body>
     
-        <div>
+        <div class="containerLogin">
             
-            <div style="position:absolute; z-index:1;" id="Layer1">
+            <div>
                 <div class="row">
                 <div class="col-xs-8"">
                     <img src="../img/logo_77.png" style="width:100%;"/>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-xs-8" style="align-content:center;">
+                        <div class="col-xs-8" style="align-content:center; padding-left:22em;">
                             <div class="form-group">
                                 <label for="ds_lgnusr" class="control-label">Username</label>
                                 <input type="text" class="form-control" id="ds_lgnusr" title="Enter your login" placeholder="Login"></input>

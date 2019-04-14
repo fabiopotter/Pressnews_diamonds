@@ -18,9 +18,25 @@ textarea {
     max-width: 280px;
 }
 
+td {
+    align-items:center;
+}
+
 #imgFile {
-    max-width: 50px;
-    max-height: 50px;
+    max-width: 100px;
+    max-height: 100px;
+    opacity: 1;
+    align-self: center;
+}
+
+@media (max-width: 489px) {
+    .visible-mobile {
+        display: inline !important;
+    }
+
+    .hidden-mobile {
+        display: none !important;
+    }
 }
 
 /* Responsive: Portrait tablets and up */
@@ -80,4 +96,5 @@ textarea {
         border: none;
         width: 150px; /* adjust as needed (as long as it doesn't break the topnav) */
     }
+
 

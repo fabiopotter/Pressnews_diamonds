@@ -44,9 +44,20 @@ namespace PressNews.Api.Controllers
         [HttpPost()]
         public IHttpActionResult Put(TB_NEWS tB_NEWS)
         {
+            string erro = "";
+
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var modelErrors = new List<string>();
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var modelError in modelState.Errors)
+                    {
+                        modelErrors.Add(modelError.ErrorMessage);
+                    }
+                }
+
+                erro = modelErrors.First();
             }
 
             tB_NEWS.dt_icl = DateTime.Now;
@@ -100,15 +111,6 @@ namespace PressNews.Api.Controllers
             }
             tB_NEWS.dt_icl = DateTime.Now;
 
-
-            /*
-             var reward = new Reward { CampaignId = 1 };
-                context.Set<Reward>().Add(reward);
-                context.SaveChanges();
-
-                reward = context.Set<Reward>().SingleOrDefault(a => a.Id == reward.Id);
-            */
-
             db.TB_NEWS.Add(tB_NEWS);
             db.SaveChanges();
 
@@ -149,6 +151,19 @@ namespace PressNews.Api.Controllers
         private bool TB_NEWSExists(int id)
         {
             return db.TB_NEWS.Count(e => e.id_new == id) > 0;
+        }
+
+        [HttpGet()]
+        [Route("api/GetNewsByCat/{id}")]
+        public IHttpActionResult GetNewsByCat(int id)
+        {
+            List<TB_NEWS> tB_NEWS = db.TB_NEWS.Include("TB_CATEGORIES").Where(n => n.id_cat == id).ToList();
+            if (tB_NEWS == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(tB_NEWS);
         }
     }
 }

@@ -44,8 +44,10 @@ namespace PressNews.Api.Controllers
         }
        
         [HttpPost()]
-        public void UploadFile()
+        public string UploadFile()
         {
+            string message = "";
+
             if (HttpContext.Current.Request.Files.AllKeys.Any())
             {
                 // Get the uploaded image from the Files collection
@@ -55,13 +57,28 @@ namespace PressNews.Api.Controllers
                 {
                     // Validate the uploaded image(optional)
 
+                    
                     // Get the complete file path
                     var fileSavePath = Path.Combine(HttpContext.Current.Server.MapPath("~/images"), httpPostedFile.FileName);
 
                     // Save the uploaded file to "UploadedFiles" folder
-                    httpPostedFile.SaveAs(fileSavePath);
+                    try
+                    {
+                        httpPostedFile.SaveAs(fileSavePath);
+                        message = "Ok"; ;
+                        return message;
+                    }
+                    catch
+                    {
+                        message = "error"; ;
+                        return message;
+                    }
+
                 }
             }
+
+            message = "Ok"; ;
+            return message;
         }
 
         // PUT: api/Categories/5
