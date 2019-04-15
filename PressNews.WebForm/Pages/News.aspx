@@ -3,7 +3,8 @@
 <asp:Content id="HeadContent" ContentPlaceHolderID="Header" runat="server">
 <div class="topnav">
    <a class="active" href="Login.aspx">Logout</a>
-  <a href="Category.aspx"">Category</a>
+   <a href="Category.aspx"">Category</a>
+   <a href="Gallery.aspx"">Gallery</a>
 
 </div>
 </asp:Content>
