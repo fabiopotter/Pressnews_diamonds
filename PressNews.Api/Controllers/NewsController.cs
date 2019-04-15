@@ -116,7 +116,7 @@ namespace PressNews.Api.Controllers
 
             var news = db.TB_NEWS.Include("TB_CATEGORIES").SingleOrDefault(n => n.id_new == tB_NEWS.id_new);
 
-            //return Ok( new { id_new = tB_NEWS.id_new });
+           
             return Ok(news);
         }
 

@@ -6,7 +6,7 @@
 
         var files = $("#image").get(0).files;
 
-        // Add the uploaded image content to the form data collection
+       
         if (files.length > 0) {
             data.append("UploadedImage", files[0]);
         }
@@ -15,7 +15,7 @@
 
         $("#nm_img").val(name);
 
-        // Make Ajax request with the contentType = false, and procesDate = false
+       
         var ajaxRequest = $.ajax({
             type: "POST",
             url: "http://localhost:51076/api/Categories/uploadfile",
@@ -31,7 +31,7 @@
         });
 
         ajaxRequest.done(function (xhr, textStatus) {
-            // Do other operation
+          
         });
     });
 });
@@ -159,10 +159,6 @@ function updateClick() {
     Category.id_cat = $("#id_cat").val();
     Category.nm_cat = $("#categoryname").val();
     Category.dt_icl = $("#introdate").val();
-    //var imgInput = document.getElementById('image');
-    //Category.ds_imgcat = $("#image").val();
-
-    //var file = document.querySelector('input[type=file]');
     Category.ds_imgcat = $('#nm_img');
 
     if ($("#updateButton").text().trim() == "Add") {
@@ -177,7 +173,7 @@ function updateClick() {
 
 
 function categoryUpdate(category) {
-    //var url = "http://localhost:51076/api/PutCategory/" + category.id_cat;
+   
     var cat = { "id_cat": category.id_cat, "nm_cat": category.nm_cat, "ds_imgcat": category.ds_imgcat };
     // Call Web API to update Category
     $.ajax({
@@ -200,7 +196,7 @@ function categoryUpdateSuccess(category) {
 
 
 function categoryAdd(category) {
-    // Call Web API to add a new Category
+   
 
     var ImgInput = document.getElementById('')
 
@@ -210,7 +206,7 @@ function categoryAdd(category) {
     $.ajax({
         url: "http://localhost:51076/api/PostCategory",
         type: 'POST',
-       // contentType: "application/json;charset=utf-8",
+     
         datatype: "json",
         data: cat,
         success: function (data) {

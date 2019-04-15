@@ -23,7 +23,7 @@
 
 <body>
     
-    <%-- <form id="loginForm" method="post" >--%>
+ 
         <div>
             
             <div style="position:absolute;" id="Layer1">

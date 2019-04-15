@@ -26,10 +26,10 @@ function categoryList() {
 
 
 function goToPage(href, ctl) {
-    // Get Category id from data- attribute
+   
     var id = $(ctl).data("id");
 
-    // Store Category id in hidden field
+  
     $("#id_cat").val(id);
     window.location.href = 'http://localhost:50427/pages/Category.aspx';
 }

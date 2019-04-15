@@ -40,7 +40,7 @@
 
 <body>
     <picture>
-       <%-- <source mmedia="(min-width:769px)" srcset="../img/77Banner_desktop.jpg">--%>
+   
             <img src="../img/77Banner_desktop.jpg" alt="Main Banner"  class="hidden-mobile">
             <img src="../img/77Banner_mobile.jpg" alt="Main Banner"  class="visible-mobile">
     </picture>

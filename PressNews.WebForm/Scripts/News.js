@@ -121,9 +121,6 @@ function GetNewsAfterInsert(data) {
     // Get Category id from data- attribute
     var id = data;
 
-    // Store Category id in hidden field
-    //$("#id_new").val(data);
-
     // Call Web API to get a list of Categorys
     $.ajax({
         url: "http://localhost:51076/api/News/" + id,
